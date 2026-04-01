@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio — Engineer | Producer | Trader | Developer</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        void: { 950:'#020205', 900:'#06060d', 800:'#0a0a16', 700:'#0e0e20', 600:'#14142e', 500:'#1c1c40' },
+                        n: { purple:'#8b5cf6', blue:'#3b82f6', cyan:'#06b6d4', green:'#10b981', orange:'#f59e0b', pink:'#ec4899', red:'#ef4444' }
+                    },
+                    fontFamily: {
+                        inter: ['Inter','sans-serif'],
+                        space: ['Space Grotesk','sans-serif'],
+                        mono: ['JetBrains Mono','monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        [x-cloak] { display: none !important; }
+        html { scroll-behavior: smooth; }
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: #06060d; }
+        ::-webkit-scrollbar-thumb { background: rgba(139,92,246,0.3); border-radius: 3px; }
+
+        /* Background Grid */
+        .bg-grid {
+            background-image:
+                linear-gradient(rgba(139,92,246,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(139,92,246,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        /* Custom Cursor Glow */
+        .cursor-glow {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            pointer-events: none;
+            background: radial-gradient(circle, rgba(139,92,246,0.08), transparent 70%);
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            transition: opacity 0.3s;
+        }
+
+        /* Text Gradients */
+        .text-grad-purple { background: linear-gradient(135deg, #a78bfa, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .text-grad-blue { background: linear-gradient(135deg, #60a5fa, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .text-grad-cyan { background: linear-gradient(135deg, #22d3ee, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .text-grad-green { background: linear-gradient(135deg, #34d399, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .text-grad-orange { background: linear-gradient(135deg, #fbbf24, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .text-grad-multi { background: linear-gradient(135deg, #a78bfa, #3b82f6, #06b6d4, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        /* Glowing borders */
+        .glow-purple { box-shadow: 0 0 30px rgba(139,92,246,0.15); }
+        .glow-blue { box-shadow: 0 0 30px rgba(59,130,246,0.15); }
+        .glow-cyan { box-shadow: 0 0 30px rgba(6,182,212,0.15); }
+        .glow-green { box-shadow: 0 0 30px rgba(16,185,129,0.15); }
+        .glow-orange { box-shadow: 0 0 30px rgba(245,158,11,0.15); }
+
+        /* Animations */
+        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+        @keyframes slideUp { from{opacity:0;transform:translateY(40px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes slideLeft { from{opacity:0;transform:translateX(40px)} to{opacity:1;transform:translateX(0)} }
+        @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+        @keyframes pulse-glow { 0%,100%{opacity:0.5} 50%{opacity:1} }
+        @keyframes spin-slow { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+        @keyframes typing { from{width:0} to{width:100%} }
+        @keyframes blink { 0%,100%{border-color:transparent} 50%{border-color:#a78bfa} }
+        @keyframes wave { 0%{transform:rotate(0deg)} 15%{transform:rotate(14deg)} 30%{transform:rotate(-8deg)} 40%{transform:rotate(14deg)} 50%{transform:rotate(-4deg)} 60%{transform:rotate(10deg)} 70%{transform:rotate(0deg)} 100%{transform:rotate(0deg)} }
+        @keyframes morph { 0%,100%{border-radius:60% 40% 30% 70%/60% 30% 70% 40%} 50%{border-radius:30% 60% 70% 40%/50% 60% 30% 60%} }
+        @keyframes eq1 { 0%,100%{height:8px} 50%{height:24px} }
+        @keyframes eq2 { 0%,100%{height:16px} 50%{height:8px} }
+        @keyframes eq3 { 0%,100%{height:12px} 50%{height:28px} }
+        @keyframes eq4 { 0%,100%{height:20px} 50%{height:10px} }
+        @keyframes candleUp { 0%{transform:scaleY(0.3)} 100%{transform:scaleY(1)} }
+
+        .animate-float { animation: float 5s ease-in-out infinite; }
+        .animate-slideUp { animation: slideUp 0.6s ease-out both; }
+        .animate-slideLeft { animation: slideLeft 0.6s ease-out both; }
+        .animate-fadeIn { animation: fadeIn 0.5s ease-out both; }
+        .animate-morph { animation: morph 8s ease-in-out infinite; }
+        .animate-wave { animation: wave 2.5s ease-in-out infinite; transform-origin: 70% 70%; }
+        .animate-spin-slow { animation: spin-slow 20s linear infinite; }
+
+        .eq-bar { width: 3px; border-radius: 2px; background: #8b5cf6; }
+        .eq-1 { animation: eq1 0.8s ease-in-out infinite; }
+        .eq-2 { animation: eq2 0.6s ease-in-out infinite 0.1s; }
+        .eq-3 { animation: eq3 0.7s ease-in-out infinite 0.2s; }
+        .eq-4 { animation: eq4 0.5s ease-in-out infinite 0.15s; }
+        .eq-5 { animation: eq1 0.9s ease-in-out infinite 0.3s; }
+
+        /* Typing effect */
+        .typing-container { display: inline-flex; overflow: hidden; white-space: nowrap; border-right: 2px solid #a78bfa; animation: blink 0.8s step-end infinite; }
+
+        /* Glass */
+        .glass { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+
+        /* Skill bar */
+        .skill-fill { transition: width 1.5s cubic-bezier(0.4,0,0.2,1); }
+
+        /* Project card hover */
+        .project-card:hover .project-image { transform: scale(1.05); }
+        .project-card:hover .project-overlay { opacity: 1; }
+        .project-overlay { opacity: 0; transition: opacity 0.3s; }
+
+        /* Section reveal */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.4,0,0.2,1); }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* Video container */
+        .video-container { position: relative; overflow: hidden; border-radius: 16px; }
+        .video-container video { width: 100%; display: block; }
+
+        /* Forex candle */
+        .candle { animation: candleUp 0.5s ease-out both; transform-origin: bottom; }
+
+        /* Line clamp */
+        .line-clamp-3 { display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+        .line-clamp-2 { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+
+        /* Mobile nav */
+        .mobile-nav-open { transform: translateX(0) !important; }
+
+        /* Tab active indicator */
+        .tab-indicator { transition: all 0.3s cubic-bezier(0.4,0,0.2,1); }
+
+        input[type="file"] { display: none; }
+    </style>
+</head>
+
+<body class="bg-void-900 font-inter text-slate-200 overflow-x-hidden" x-data="portfolio()" x-init="init()">
+
+    <!-- Cursor Glow -->
+    <div class="cursor-glow hidden lg:block" id="cursorGlow"></div>
+
+    <!-- Background -->
+    <div class="fixed inset-0 pointer-events-none z-0">
+        <div class="absolute inset-0 bg-grid"></div>
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-n-purple/5 rounded-full blur-[150px]"></div>
+        <div class="absolute bottom-1/4 right-0 w-[500px] h-[300px] bg-n-blue/3 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-0 left-0 w-[400px] h-[250px] bg-n-cyan/3 rounded-full blur-[100px]"></div>
+    </div>
+
+    <!-- ====== NAVIGATION ====== -->
+    <nav class="fixed top-0 left-0 right-0 z-[100] bg-void-900/80 glass border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <a href="#home" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-n-purple to-n-blue flex items-center justify-center shadow-lg shadow-n-purple/20 group-hover:shadow-n-purple/40 transition-shadow">
+                        <span class="text-white font-black text-sm">YN</span>
+                    </div>
+                    <div class="hidden sm:block">
+                        <p class="text-sm font-bold text-grad-purple">Fares</p>
+                        <p class="text-[9px] text-slate-600 uppercase tracking-widest font-bold">Multi-Disciplinary Creator</p>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center gap-1">
+                    <template x-for="item in navItems" :key="item.id">
+                        <a :href="'#' + item.id"
+                           @click="activeSection = item.id"
+                           class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 relative"
+                           :class="activeSection === item.id
+                               ? 'text-white bg-white/5'
+                               : 'text-slate-500 hover:text-slate-300 hover:bg-white/3'">
+                            <span x-text="item.label"></span>
+                            <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full transition-all"
+                                 :class="activeSection === item.id ? 'bg-n-purple' : 'bg-transparent'"></div>
+                        </a>
+                    </template>
+                </div>
+
+                <!-- CTA + Mobile Menu -->
+                <div class="flex items-center gap-3">
+                    <a href="#contact" class="hidden sm:flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-n-purple to-n-blue text-white rounded-xl text-sm font-bold shadow-lg shadow-n-purple/20 hover:shadow-n-purple/40 hover:-translate-y-0.5 transition-all">
+                        <i class="fas fa-envelope text-xs"></i> Contact
+                    </a>
+                    <button @click="mobileMenu = !mobileMenu" class="md:hidden w-10 h-10 rounded-xl bg-void-700 flex items-center justify-center text-slate-400 hover:text-white transition">
+                        <i :class="mobileMenu ? 'fas fa-times' : 'fas fa-bars'"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenu" x-transition x-cloak class="md:hidden bg-void-800/95 glass border-t border-white/5">
+            <div class="px-4 py-3 space-y-1">
+                <template x-for="item in navItems" :key="item.id">
+                    <a :href="'#' + item.id"
+                       @click="activeSection = item.id; mobileMenu = false"
+                       class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition"
+                       :class="activeSection === item.id ? 'bg-n-purple/10 text-n-purple' : 'text-slate-400 hover:bg-white/5'">
+                        <i :class="item.icon" class="w-5 text-center"></i>
+                        <span x-text="item.label"></span>
+                    </a>
+                </template>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ====== MAIN CONTENT ====== -->
+    <main class="relative z-10">
+
+        <!-- ===== HERO SECTION ===== -->
+        <section id="home" class="min-h-screen flex items-center pt-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
+                <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                    <!-- Left Content -->
+                    <div class="order-2 lg:order-1">
+                        <div class="flex items-center gap-2 mb-6">
+                            <span class="animate-wave inline-block text-2xl">👋</span>
+                            <span class="text-sm text-slate-500 font-medium">Hello, I'm</span>
+                        </div>
+
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-4 tracking-tight">
+                            <span class="text-white">Phares</span><br>
+                            <span class="text-grad-multi">Fares Haile</span>
+                        </h1>
+
+                        <!-- Typing Effect -->
+                        <div class="h-8 mb-6 flex items-center">
+                            <span class="text-slate-500 text-lg mr-2">I'm a</span>
+                            <span class="text-lg font-bold typing-container" :class="typingColorClass" x-text="currentRole"></span>
+                        </div>
+
+                        <p class="text-slate-400 text-base sm:text-lg leading-relaxed mb-8 max-w-lg">
+                            A multidisciplinary creator who builds bridges between
+                            <span class="text-n-blue font-semibold">engineering</span>,
+                            <span class="text-n-purple font-semibold">music</span>,
+                            <span class="text-n-green font-semibold">financial markets</span>, and
+                            <span class="text-n-cyan font-semibold">code</span>.
+                            Currently studying Mechanical Engineering while creating, trading, and coding.
+                        </p>
+
+                        <!-- CTA Buttons -->
+                        <div class="flex flex-wrap gap-3 mb-10">
+                            <a href="#projects" class="px-6 py-3 bg-gradient-to-r from-n-purple to-n-blue text-white rounded-xl font-bold text-sm shadow-lg shadow-n-purple/25 hover:shadow-n-purple/40 hover:-translate-y-0.5 transition-all flex items-center gap-2">
+                                <i class="fas fa-rocket"></i> View My Work
+                            </a>
+                            <a href="#about" class="px-6 py-3 bg-void-700 text-slate-300 rounded-xl font-bold text-sm border border-white/5 hover:border-n-purple/30 hover:text-white transition-all flex items-center gap-2">
+                                <i class="fas fa-user"></i> About Me
+                            </a>
+                        </div>
+
+                        <!-- Quick Stats -->
+                        <div class="flex flex-wrap gap-6">
+                            <div class="text-center">
+                                <div class="text-2xl font-black text-grad-purple" x-text="animatedStats.projects + '+'">0+</div>
+                                <div class="text-[10px] text-slate-600 uppercase tracking-widest font-bold mt-1">Projects</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-black text-grad-blue" x-text="animatedStats.beats + '+'">0+</div>
+                                <div class="text-[10px] text-slate-600 uppercase tracking-widest font-bold mt-1">Beats Made</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-black text-grad-green" x-text="animatedStats.trades + '+'">0+</div>
+                                <div class="text-[10px] text-slate-600 uppercase tracking-widest font-bold mt-1">Trades</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-2xl font-black text-grad-cyan" x-text="animatedStats.repos + '+'">0+</div>
+                                <div class="text-[10px] text-slate-600 uppercase tracking-widest font-bold mt-1">Repos</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right — Avatar / Visual -->
+                    <div class="order-1 lg:order-2 flex justify-center">
+                        <div class="relative">
+                            <!-- Morphing Background -->
+                            <div class="absolute inset-0 bg-gradient-to-br from-n-purple/20 via-n-blue/10 to-n-cyan/20 animate-morph scale-110 blur-sm"></div>
+
+                            <!-- Avatar Container -->
+                            <div class="relative w-64 h-64 sm:w-80 sm:h-80 rounded-full overflow-hidden border-2 border-white/10 shadow-2xl animate-morph">
+                                <div class="absolute inset-0 bg-gradient-to-br from-n-purple/30 via-void-700 to-n-blue/30 flex items-center justify-center">
+                                    <!-- Replace with your photo -->
+                                    <div class="text-center">
+                                        <div class="text-6xl sm:text-7xl mb-2">🧑‍💻</div>
+                                        <p class="text-xs text-slate-500">Your Photo Here</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Floating Badges -->
+                            <div class="absolute -top-2 -right-2 w-16 h-16 rounded-2xl bg-void-700/90 glass border border-white/10 flex items-center justify-center animate-float shadow-xl" style="animation-delay: 0s;">
+                                <span class="text-2xl">⚙️</span>
+                            </div>
+                            <div class="absolute -bottom-2 -left-2 w-16 h-16 rounded-2xl bg-void-700/90 glass border border-white/10 flex items-center justify-center animate-float shadow-xl" style="animation-delay: 1s;">
+                                <span class="text-2xl">🎵</span>
+                            </div>
+                            <div class="absolute top-1/2 -right-6 w-14 h-14 rounded-2xl bg-void-700/90 glass border border-white/10 flex items-center justify-center animate-float shadow-xl" style="animation-delay: 2s;">
+                                <span class="text-xl">📈</span>
+                            </div>
+                            <div class="absolute top-1/2 -left-6 w-14 h-14 rounded-2xl bg-void-700/90 glass border border-white/10 flex items-center justify-center animate-float shadow-xl" style="animation-delay: 1.5s;">
+                                <span class="text-xl">💻</span>
+                            </div>
+
+                            <!-- Spinning orbit ring -->
+                            <div class="absolute inset-[-20px] border border-dashed border-n-purple/10 rounded-full animate-spin-slow"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scroll indicator -->
+                <div class="hidden lg:flex justify-center mt-12">
+                    <a href="#about" class="flex flex-col items-center gap-2 text-slate-600 hover:text-n-purple transition animate-float">
+                        <span class="text-xs font-mono">scroll down</span>
+                        <i class="fas fa-chevron-down text-xs"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== ABOUT SECTION ===== -->
+        <section id="about" class="py-20 sm:py-28 reveal">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <span class="text-xs font-bold uppercase tracking-widest text-n-purple/70 block mb-2">About Me</span>
+                    <h2 class="text-3xl sm:text-4xl font-black tracking-tight">Four Passions. <span class="text-grad-multi">One Person.</span></h2>
+                    <p class="text-slate-500 mt-3 max-w-xl mx-auto text-sm">I don't fit into one box — and that's what makes me unique.</p>
+                </div>
+
+                <!-- Bio -->
+                <div class="max-w-3xl mx-auto mb-16">
+                    <div class="bg-void-700/40 glass border border-white/5 rounded-3xl p-6 sm:p-10">
+                        <p class="text-slate-300 leading-relaxed text-base sm:text-lg">
+                            I'm a <span class="text-n-blue font-semibold">Mechanical Engineering</span> student with a deep love for understanding how things work — from engines to algorithms. Outside the classroom, I produce
+                            <span class="text-n-purple font-semibold">music beats</span> that I've never published (yet), analyze
+                            <span class="text-n-green font-semibold">Forex markets</span> for short-term trades, and build
+                            <span class="text-n-cyan font-semibold">web applications</span> that solve real problems.
+                        </p>
+                        <p class="text-slate-400 leading-relaxed mt-4 text-sm sm:text-base">
+                            Each discipline feeds the others: engineering gives me systematic thinking, music gives me creativity, trading gives me risk management and discipline, and programming gives me the power to build anything. I'm not famous — yet. But I'm building every single day.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Four Profession Cards -->
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <template x-for="prof in professions" :key="prof.id">
+                        <div @click="activeProfession = prof.id; activeSection = 'professions'"
+                             class="group bg-void-700/40 glass border border-white/5 rounded-2xl p-6 cursor-pointer hover:-translate-y-2 transition-all duration-300 relative overflow-hidden"
+                             :class="'hover:border-' + prof.borderColor + '/30 hover:' + prof.glowClass">
+                            <!-- Top accent -->
+                            <div class="absolute top-0 left-0 right-0 h-[3px] rounded-t-2xl" :class="'bg-gradient-to-r ' + prof.gradient"></div>
+                            <!-- Icon -->
+                            <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-4 transition-transform group-hover:scale-110"
+                                 :class="prof.iconBg">
+                                <span class="text-2xl" x-text="prof.emoji"></span>
+                            </div>
+                            <h3 class="font-bold text-lg mb-1" x-text="prof.title"></h3>
+                            <p class="text-xs text-slate-500 mb-3" x-text="prof.subtitle"></p>
+                            <p class="text-sm text-slate-400 leading-relaxed line-clamp-3" x-text="prof.shortDesc"></p>
+                            <div class="mt-4 flex items-center gap-1.5 text-xs font-semibold transition" :class="'text-' + prof.borderColor + '/70 group-hover:text-' + prof.borderColor">
+                                <span>Explore</span>
+                                <i class="fas fa-arrow-right text-[10px] transition-transform group-hover:translate-x-1"></i>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== PROFESSIONS DEEP DIVE ===== -->
+        <section id="professions" class="py-20 sm:py-28 reveal">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <span class="text-xs font-bold uppercase tracking-widest text-n-purple/70 block mb-2">Deep Dive</span>
+                    <h2 class="text-3xl sm:text-4xl font-black tracking-tight">My <span class="text-grad-multi">Worlds</span></h2>
+                </div>
+
+                <!-- Profession Tabs -->
+                <div class="flex flex-wrap justify-center gap-2 mb-10">
+                    <template x-for="prof in professions" :key="prof.id">
+                        <button @click="activeProfession = prof.id"
+                                class="px-5 py-2.5 rounded-xl text-sm font-bold transition-all flex items-center gap-2"
+                                :class="activeProfession === prof.id
+                                    ? 'bg-gradient-to-r ' + prof.gradient + ' text-white shadow-lg'
+                                    : 'bg-void-700 text-slate-400 hover:text-white border border-white/5'">
+                            <span x-text="prof.emoji"></span>
+                            <span x-text="prof.shortTitle" class="hidden sm:inline"></span>
+                        </button>
+                    </template>
+                </div>
+
+                <!-- ========== MECHANICAL ENGINEERING ========== -->
+                <div x-show="activeProfession === 'engineering'" x-transition:enter="transition ease-out duration-300"
+                     x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-1 translate-y-0">
+                    <div class="grid lg:grid-cols-5 gap-6">
+                        <!-- Main Content -->
+                        <div class="lg:col-span-3 space-y-6">
+                            <div class="bg-void-700/40 glass border border-n-blue/10 rounded-2xl p-6 sm:p-8">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="w-12 h-12 rounded-xl bg-n-blue/15 flex items-center justify-center text-2xl">⚙️</div>
+                                    <div>
+                                        <h3 class="text-xl font-black text-grad-blue">Mechanical Engineering</h3>
+                                        <p class="text-xs text-slate-500">Student • Problem Solver • Builder</p>
+                                    </div>
+                                </div>
+                                <p class="text-slate-300 leading-relaxed mb-4">
+                                    Mechanical Engineering is my foundation. I'm fascinated by thermodynamics, fluid mechanics, and machine design. I love applying engineering principles to real-world problems — from designing mechanical systems to analyzing stress and strain in materials.
+                                </p>
+                                <p class="text-slate-400 text-sm leading-relaxed">
+                                    My engineering mindset bleeds into everything I do: I approach music production like signal processing, trading like risk analysis, and programming like systems design.
+                                </p>
+                            </div>
+
+                            <!-- Video Slot -->
+                            <div class="bg-void-700/40 glass border border-white/5 rounded-2xl p-5">
+                                <h4 class="text-sm font-bold mb-3 flex items-center gap-2"><i class="fas fa-video text-n-blue"></i> Featured Video</h4>
+                                <div class="aspect-video bg-void-600 rounded-xl flex items-center justify-center relative overflow-hidden">
+                                    <div class="text-center">
+                                        <i class="fas fa-play-circle text-4xl text-n-blue/50 mb-2"></i>
+                                        <p class="text-xs text-slate-500">Upload your engineering project video</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sidebar -->
+                        <div class="lg:col-span-2 space-y-4">
+                            <!-- Skills -->
+                            <div class="bg-void-700/40 glass border border-white/5 rounded-2xl p-5">
+                                <h4 class="text-sm font-bold mb-4 flex items-center gap-2"><i class="fas fa-tools text-n-blue"></i> Skills & Tools</h4>
+                                <div class="space-y-3">
+                                    <template x-for="skill in skills.engineering" :key="skill.name">
+                                        <div>
+                                            <div class="flex justify-between text-xs mb-1">
+                                                <span class="font-medium text-slate-300" x-text="skill.name"></span>
+                                                <span class="text-slate-500 font-mono" x-text="skill.level + '%'"></span>
+                                            </div>
+                                            <div class="h-1.5 bg-void-500 rounded-full overflow-hidden">
+                                                <div class="h-full bg-gradient-to-r from-n-blue to-blue-400 rounded-full skill-fill" :style="'width:' + skill.level + '%'"></div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+
+                            <!-- Coursework -->
+                            <div class="bg-void-700/40 glass border border-white/5 rounded-2xl p-5">
+                                <h4 class="text-sm font-bold mb-3 flex items-center gap-2"><i class="fas fa-graduation-cap text-n-blue"></i> Key Coursework</h4>
+                                <div class="flex flex-wrap gap-2">
+                                    <template x-for="course in ['Thermodynamics', 'Fluid Mechanics', 'Machine Design', 'CAD/CAM', 'Materials Science', 'Dynamics', 'Manufacturing', 'FEA']">
+                                        <span class="px-3 py-1 bg-n-blue/10 text-n-blue text-[11px] font-semibold rounded-lg" x-text="course"></span>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ========== MUSIC PRODUCTION ========== -->
+                <div x-show="activeProfession === 'music'" x-transition:enter="transition ease-out duration-300"
+                     x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-1 translate-y-0">
+                    <div class="grid lg:grid-cols-5 gap-6">
+                        <div class="lg:col-span-3 space-y-6">
+                            <div class="bg-void-700/40 glass border border-n-purple/10 rounded-2xl p-6 sm:p-8">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="w-12 h-12 rounded-xl bg-n-purple/15 flex items-center justify-center text-2xl">🎵</div>
+                                    <div>
+                                        <h3 class="text-xl font-black text-grad-purple">Music Producer</h3>
+                                        <p class="text-xs text-slate-500">Beat Maker • Intermediate • Unreleased</p>
+                                    </div>
+                                </div>
+                                <p class="text-slate-300 leading-relaxed mb-4">
+                                    Music is my emotional outlet. I produce beats across multiple genres — from trap and hip-hop to Afrobeats and experimental electronic. I haven't published anything yet, but my hard drive is full of unreleased bangers waiting for the right moment.
+                                </p>
+                                <p class="text-slate-400 text-sm leading-relaxed">
+                                    I see music production as engineering for the ears — mixing is like balancing forces, mastering is like quality control, and sound design is pure creative engineering.
+                                </p>
+
+                                <!-- Equalizer Animation -->
+                                <div class="flex items-end gap-1.5 h-8 mt-6">
+                                    <div class="eq-bar eq-1"></div>
+                                    <div class="eq-bar eq-2"></div>
+                                    <div class="eq-bar eq-3"></div>
+                                    <div class="eq-bar eq-4"></div>
+                                    <div class="eq-bar eq-5"></div>
+                                    <div class="eq-bar eq-1" style="animation-delay:0.4s"></div>
+                                    <div class="eq-bar eq-3" style="animation-delay:0.2s"></div>
+                                    <div class="eq-bar eq-2" style="animation-delay:0.5s"></div>
+                                    <div class="eq-bar eq-4" style="animation-delay:0.1s"></div>
+                                    <div class="eq-bar eq-1" style="animation-delay:0.6s"></div>
+                                    <div class="eq-bar eq-3" style="animation-delay:0.35s"></div>
+                                    <div class="eq-bar eq-2" style="animation-delay:0.7s"></div>
+                                    <span class="text-xs text-slate-600 ml-3 self-center font-mono">producing...</span>
+                                </div>
+                            </div>
+
+                            <!-- Beat Uploads / Video -->
+                            <div class="bg-void-700/40 glass border border-white/5 rounded-2xl p-5">
+                                <h4 class="text-sm font-bold mb-3 flex items-center gap-2"><i class="fas fa-headphones text-n-purple"></i> Sample Beats / Studio Clips</h4>
+                                <div class="aspect-video bg-void-600 rounded-xl flex items-center justify-center">
+                                    <div class="text-center">
+                                        <i class="fas fa-music text-4xl text-n-purple/50 mb-2"></i>
+                                        <p class="text-xs text-slate-500">Upload your beat-making videos here</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-2 space-y-4">
+                            <div class="bg-void-700/40 glass border border-white/5 rounded-2xl p-5">
+                                <h4 class="text-sm font-bold mb-4 flex items-center gap-2"><i class="fas fa-sliders text-n-purple"></i> DAW & Tools</h4>
+                                <div class="space-y-3">
+                                    <template x-for="skill in skills.music" :key="skill.name">
+                                        <div>
+                                            <div class="flex justify-between text-xs mb-1">
+                                                <span class="font-medium text-slate-300" x-text="skill.name"></span>
+                                                <span class="text-slate-500 font-mono" x-text="skill.level + '%'"></span>
+                                            </div>
+                                            <div class="h-1.5 bg-void-500 rounded-full overflow-hidden">
+                                                <div class="h-full bg-gradient-to-r from-n-purple to-purple-400 rounded-full skill-fill" :style="'width:' + skill.level + '%'"></div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                            <div class="bg-void-700/40 glass border border-white/5 rounded-2xl p-5">
+                                <h4 class="text-sm font-bold mb-3 flex items-center gap-2"><i class="fas fa-music text-n-purple"></i> Genres</h4>
+                                <div class="flex flex-wrap gap-2">
+                                    <template x-for="g in ['Trap', 'Hip-Hop', 'Afrobeats', 'R&B', 'Lo-Fi', 'Electronic', 'Experimental', 'Ambient']">
+                                        <span class="px-3 py-1 bg-n-purple/10 text-purple-300 text-[11px] font-semibold rounded-lg" x-text="g"></span>
+                                    </template>
+                                </div>
+                            </div>
+                            <div class="bg-void-700/40 glass border border-n-purple/10 rounded-2xl p-5">
+                                <p class="text-sm text-slate-400 italic leading-relaxed">"I haven't released anything yet — but when I do, the world will hear something different."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ========== FOREX TRADING ========== -->
+                <div x-show="activeProfession === 'trading'" x-transition:enter="transition ease-out duration-300"
+                     x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-1 translate-y-0">
+                    <div class="grid lg:grid-cols-5 gap-6">
+                        <div class="lg:col-span-3 space-y-6">
+                            <div class="bg-void-700/40 glass border border-n-green/10 rounded-2xl p-6 sm:p-8">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="w-12 h-12 rounded-xl bg-n-green/15 flex items-center justify-center text-2xl">📈</div>
+                                    <div>
+                                        <h3 class="text-xl font-black text-grad-green">Forex Trader</h3>
+                                        <p class="text-xs text-slate-500">Short-Term • Technical Analysis • Risk Manager</p>
+                                    </div>
+                                </div>
+                                <p class="text-slate-300 leading-relaxed mb-4">
+                                    The markets are my daily puzzle. I trade Forex on short timeframes using technical analysis, price action, and disciplined risk management. Every trade is a calculated bet backed by data — not emotion.
+                                </p>
+                                <p class="text-slate-400 text-sm leading-relaxed">
+                                    Trading taught me patience, discipline, and the ability to make decisions under pressure. These skills transfer directly to engineering problem-solving and the creative process of music production.
+                                </p>
+
+                                <!-- Mini Chart Visual -->
+                                <div class="flex items-end gap-1 h-16 mt-6">
+                                    <template x-for="(h, i) in [30,45,25,55,40,60,35,70,50,65,45,75,55,80,60,50,70,85,65,55]" :key="i">
+                                        <div class="w-2 rounded-sm candle" :style="'height:' + h + '%; animation-delay:' + (i*0.05) + 's'"
+                                             :class="h > 50 ? 'bg-n-green' : 'bg-n-red/60'"></div>
+                                    </template>
+                                </div>
+                            </div>
+
+                            <div class="bg-void-700/40 glass border border-white/5 rounded-2xl p-5">
+                                <h4 class="text-sm font-bold mb-3 flex items-center gap-2"><i class="fas fa-chart-line text-n-green"></i> Trading Breakdown / Analysis Videos</h4>
+                                <div class="aspect-video bg-void-600 rounded-xl flex items-center justify-center">
+                                    <div class="text-center">
+                                        <i class="fas fa-chart-candlestick text-4xl text-n-green/50 mb-2"></i>
+                                        <p class="text-xs text-slate-500">Upload trading analysis videos</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-2 space-y-4">
+                            <div class="bg-void-700/40 glass border border-white/5 rounded-2xl p-5">
+                                <h4 class="text-sm font-bold mb-4 flex items-center gap-2"><i class="fas fa-crosshairs text-n-green"></i> Trading Skills</h4>
+                                <div class="space-y-3">
+                                    <template x-for="skill in skills.trading" :key="skill.name">
+                                        <div>
+                                            <div class="flex justify-between text-xs mb-1">
+                                                <span class="font-medium text-slate-300" x-text="skill.name"></span>
+                                                <span class="text-slate-500 font-mono" x-text="skill.level + '%'"></span>
+                                            </div>
+                                            <div class="h-1.5 bg-void-500 rounded-full overflow-hidden">
+                                                <div class="h-full bg-gradient-to-r from-n-green to-emerald-400 rounded-full skill-fill" :style="'width:' + skill.level + '%'"></div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                            <div class="bg-void-700/40 glass border border-white/5 rounded-2xl p-5">
+                                <h4 class="text-sm font-bold mb-3 flex items-center gap-2"><i class="fas fa-coins text-n-green"></i> Markets & Pairs</h4>
+                                <div class="flex flex-wrap gap-2">
+                                    <template x-for="p in ['EUR/USD', 'GBP/USD', 'USD/JPY', 'XAU/USD', 'GBP/JPY', 'BTC/USD']">
+                                        <span class="px-3 py-1 bg-n-green/10 text-emerald-300 text-[11px] font-semibold rounded-lg font-mono" x-text="p"></span>
+                                    </template>
+                                </div>
+                            </div>
+                            <div class="bg-void-700/40 glass border border-white/5 rounded-2xl p-5">
+                                <h4 class="text-sm font-bold mb-2"><i class="fas fa-shield-halved text-n-green mr-1"></i> Trading Rules</h4>
+                                <ul class="text-xs text-slate-400 space-y-1.5">
+                                    <li class="flex items-start gap-2"><i class="fas fa-check text-n-green mt-0.5 text-[10px]"></i> Never risk more than 1-2% per trade</li>
+                                    <li class="flex items-start gap-2"><i class="fas fa-check text-n-green mt-0.5 text-[10px]"></i> Always use stop-loss</li>
+                                    <li class="flex items-start gap-2"><i class="fas fa-check text-n-green mt-0.5 text-[10px]"></i> Trade the plan, not emotions</li>
+                                    <li class="flex items-start gap-2"><i class="fas fa-check text-n-green mt-0.5 text-[10px]"></i> Journal every trade</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ========== WEB DEVELOPMENT ========== -->
+                <div x-show="activeProfession === 'coding'" x-transition:enter="transition ease-out duration-300"
+                     x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-1 translate-y-0">
+                    <div class="grid lg:grid-cols-5 gap-6">
+                        <div class="lg:col-span-3 space-y-6">
+                            <div class="bg-void-700/40 glass border border-n-cyan/10 rounded-2xl p-6 sm:p-8">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="w-12 h-12 rounded-xl bg-n-cyan/15 flex items-center justify-center text-2xl">💻</div>
+                                    <div>
+                                        <h3 class="text-xl font-black text-grad-cyan">Web Developer</h3>
+                                        <p class="text-xs text-slate-500">Full-Stack • Problem Solver • Builder</p>
+                                    </div>
+                                </div>
+                                <p class="text-slate-300 leading-relaxed mb-4">
+                                    Code is my superpower. I build web applications from front to back — creating beautiful interfaces, solid APIs, and everything in between. Programming lets me turn ideas from all my other disciplines into real, working products.
+                                </p>
+
+                                <!-- Terminal Style -->
+                                <div class="bg-void-950 rounded-xl p-4 font-mono text-xs mt-4">
+                                    <div class="flex items-center gap-2 mb-3">
+                                        <div class="w-3 h-3 rounded-full bg-n-red/80"></div>
+                                        <div class="w-3 h-3 rounded-full bg-n-orange/80"></div>
+                                        <div class="w-3 h-3 rounded-full bg-n-green/80"></div>
+                                        <span class="text-slate-600 ml-2">terminal</span>
+                                    </div>
+                                    <div class="text-n-green">$ whoami</div>
+                                    <div class="text-slate-400 mt-1">full-stack-developer</div>
+                                    <div class="text-n-green mt-2">$ cat skills.json</div>
+                                    <div class="text-slate-400 mt-1">{</div>
+                                    <div class="text-n-cyan ml-4">"frontend": <span class="text-n-orange">["HTML","CSS","JS","Tailwind","Alpine","React"]</span>,</div>
+                                    <div class="text-n-cyan ml-4">"backend": <span class="text-n-orange">["Node.js","Express","Python","MongoDB"]</span>,</div>
+                                    <div class="text-n-cyan ml-4">"tools": <span class="text-n-orange">["Git","VS Code","Docker","Linux"]</span></div>
+                                    <div class="text-slate-400">}</div>
+                                    <div class="text-n-green mt-2">$ <span class="animate-pulse">_</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-2 space-y-4">
+                            <div class="bg-void-700/40 glass border border-white/5 rounded-2xl p-5">
+                                <h4 class="text-sm font-bold mb-4 flex items-center gap-2"><i class="fas fa-code text-n-cyan"></i> Tech Stack</h4>
+                                <div class="space-y-3">
+                                    <template x-for="skill in skills.coding" :key="skill.name">
+                                        <div>
+                                            <div class="flex justify-between text-xs mb-1">
+                                                <span class="font-medium text-slate-300" x-text="skill.name"></span>
+                                                <span class="text-slate-500 font-mono" x-text="skill.level + '%'"></span>
+                                            </div>
+                                            <div class="h-1.5 bg-void-500 rounded-full overflow-hidden">
+                                                <div class="h-full bg-gradient-to-r from-n-cyan to-cyan-400 rounded-full skill-fill" :style="'width:' + skill.level + '%'"></div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                            <div class="bg-void-700/40 glass border border-white/5 rounded-2xl p-5">
+                                <h4 class="text-sm font-bold mb-3 flex items-center gap-2"><i class="fab fa-github text-n-cyan"></i> Languages</h4>
+                                <div class="flex flex-wrap gap-2">
+                                    <template x-for="l in ['JavaScript', 'Python', 'HTML/CSS', 'TypeScript', 'SQL', 'C++', 'Bash']">
+                                        <span class="px-3 py-1 bg-n-cyan/10 text-cyan-300 text-[11px] font-semibold rounded-lg font-mono" x-text="l"></span>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== PROJECTS SECTION ===== -->
+        <section id="projects" class="py-20 sm:py-28 reveal">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <span class="text-xs font-bold uppercase tracking-widest text-n-purple/70 block mb-2">Portfolio</span>
+                    <h2 class="text-3xl sm:text-4xl font-black tracking-tight">My <span class="text-grad-multi">Projects</span></h2>
+                    <p class="text-slate-500 mt-3 max-w-xl mx-auto text-sm">Things I've built, designed, produced, and traded.</p>
+                </div>
+
+                <!-- Filter -->
+                <div class="flex flex-wrap justify-center gap-2 mb-8">
+                    <button @click="projectFilter = 'all'" class="px-4 py-2 rounded-xl text-xs font-bold transition"
+                            :class="projectFilter === 'all' ? 'bg-white text-void-900' : 'bg-void-700 text-slate-400 hover:text-white'">All</button>
+                    <template x-for="f in [{id:'engineering',label:'⚙️ Engineering',color:'n-blue'},{id:'music',label:'🎵 Music',color:'n-purple'},{id:'trading',label:'📈 Trading',color:'n-green'},{id:'coding',label:'💻 Coding',color:'n-cyan'}]" :key="f.id">
+                        <button @click="projectFilter = f.id" class="px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5"
+                                :class="projectFilter === f.id ? 'bg-' + f.color + ' text-white' : 'bg-void-700 text-slate-400 hover:text-white'"
+                                x-text="f.label"></button>
+                    </template>
+                </div>
+
+                <!-- Projects Grid -->
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <template x-for="project in filteredProjects" :key="project.id">
+                        <div class="project-card group bg-void-700/40 glass border border-white/5 rounded-2xl overflow-hidden hover:-translate-y-2 hover:border-white/10 transition-all duration-300 cursor-pointer"
+                             @click="openProjectModal(project)">
+                            <!-- Image/Video Area -->
+                            <div class="aspect-video bg-void-600 relative overflow-hidden">
+                                <div class="project-image absolute inset-0 transition-transform duration-500"
+                                     :style="'background: linear-gradient(135deg, hsl(' + (project.id * 47 % 360) + ',30%,12%), hsl(' + (project.id * 73 % 360) + ',20%,8%))'">
+                                </div>
+                                <div class="project-overlay absolute inset-0 bg-black/50 flex items-center justify-center">
+                                    <div class="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                                        <i class="fas fa-eye text-white text-lg"></i>
+                                    </div>
+                                </div>
+                                <!-- Category Badge -->
+                                <div class="absolute top-3 left-3 px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider"
+                                     :class="{
+                                         'bg-n-blue/80 text-white': project.category === 'engineering',
+                                         'bg-n-purple/80 text-white': project.category === 'music',
+                                         'bg-n-green/80 text-white': project.category === 'trading',
+                                         'bg-n-cyan/80 text-white': project.category === 'coding'
+                                     }"
+                                     x-text="project.category"></div>
+                                <!-- Has Video Badge -->
+                                <div x-show="project.hasVideo" class="absolute top-3 right-3 px-2 py-1 rounded-lg bg-red-500/90 text-white text-[9px] font-bold flex items-center gap-1">
+                                    <i class="fas fa-video" style="font-size:8px"></i> VIDEO
+                                </div>
+                            </div>
+                            <!-- Info -->
+                            <div class="p-5">
+                                <h3 class="font-bold text-sm mb-1.5 group-hover:text-white transition" x-text="project.title"></h3>
+                                <p class="text-xs text-slate-500 leading-relaxed line-clamp-2 mb-3" x-text="project.description"></p>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <template x-for="tag in project.tags.slice(0,3)" :key="tag">
+                                        <span class="px-2 py-0.5 bg-void-500 text-slate-500 text-[10px] font-semibold rounded-md" x-text="tag"></span>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <div x-show="filteredProjects.length === 0" class="text-center py-16">
+                    <i class="fas fa-folder-open text-3xl text-slate-700 mb-3"></i>
+                    <p class="text-slate-500 text-sm">No projects in this category yet.</p>
+                </div>
+
+                <!-- Add Project Button (for you to manage) -->
+                <div class="text-center mt-10">
+                    <button @click="showAddProject = true"
+                            class="px-6 py-3 bg-void-700 border border-dashed border-white/10 text-slate-500 rounded-xl text-sm font-semibold hover:border-n-purple/30 hover:text-n-purple transition flex items-center gap-2 mx-auto">
+                        <i class="fas fa-plus"></i> Add New Project
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== WRITINGS SECTION ===== -->
+        <section id="writings" class="py-20 sm:py-28 reveal">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <span class="text-xs font-bold uppercase tracking-widest text-n-purple/70 block mb-2">Blog / Thoughts</span>
+                    <h2 class="text-3xl sm:text-4xl font-black tracking-tight">My <span class="text-grad-multi">Writings</span></h2>
+                </div>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <template x-for="post in writings" :key="post.id">
+                        <div class="group bg-void-700/40 glass border border-white/5 rounded-2xl p-6 hover:-translate-y-1 hover:border-white/10 transition-all cursor-pointer"
+                             @click="openWritingModal(post)">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="text-lg" x-text="post.emoji"></span>
+                                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md"
+                                      :class="{
+                                          'bg-n-blue/15 text-n-blue': post.category === 'engineering',
+                                          'bg-n-purple/15 text-purple-300': post.category === 'music',
+                                          'bg-n-green/15 text-emerald-300': post.category === 'trading',
+                                          'bg-n-cyan/15 text-cyan-300': post.category === 'coding',
+                                          'bg-n-orange/15 text-amber-300': post.category === 'personal'
+                                      }"
+                                      x-text="post.category"></span>
+                            </div>
+                            <h3 class="font-bold text-sm mb-2 group-hover:text-white transition" x-text="post.title"></h3>
+                            <p class="text-xs text-slate-500 leading-relaxed line-clamp-3" x-text="post.excerpt"></p>
+                            <div class="mt-4 flex items-center justify-between">
+                                <span class="text-[10px] text-slate-600 font-mono" x-text="post.date"></span>
+                                <span class="text-[10px] text-slate-600" x-text="post.readTime"></span>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CONTACT SECTION ===== -->
+        <section id="contact" class="py-20 sm:py-28 reveal">
+            <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <span class="text-xs font-bold uppercase tracking-widest text-n-purple/70 block mb-2">Get In Touch</span>
+                    <h2 class="text-3xl sm:text-4xl font-black tracking-tight">Let's <span class="text-grad-multi">Connect</span></h2>
+                    <p class="text-slate-500 mt-3 text-sm">Got a project, collaboration idea, or just want to say hi?</p>
+                </div>
+
+                <div class="bg-void-700/40 glass border border-white/5 rounded-3xl p-6 sm:p-10">
+                    <!-- Social Links -->
+                    <div class="flex flex-wrap justify-center gap-3 mb-8">
+                        <template x-for="link in socialLinks" :key="link.name">
+                            <a :href="link.url" target="_blank"
+                               class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-void-600 border border-white/5 text-slate-400 text-sm font-medium hover:text-white hover:border-white/10 transition group">
+                                <i :class="link.icon" class="group-hover:text-n-purple transition"></i>
+                                <span x-text="link.name"></span>
+                            </a>
+                        </template>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="space-y-4">
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-[11px] uppercase tracking-wider text-slate-500 font-bold mb-1.5 block">Name</label>
+                                <input type="text" x-model="contactForm.name" placeholder="Your name"
+                                       class="w-full px-4 py-3 bg-void-600 border border-white/5 rounded-xl text-sm placeholder-slate-600 focus:outline-none focus:border-n-purple/50 transition">
+                            </div>
+                            <div>
+                                <label class="text-[11px] uppercase tracking-wider text-slate-500 font-bold mb-1.5 block">Email</label>
+                                <input type="email" x-model="contactForm.email" placeholder="you@email.com"
+                                       class="w-full px-4 py-3 bg-void-600 border border-white/5 rounded-xl text-sm placeholder-slate-600 focus:outline-none focus:border-n-purple/50 transition">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="text-[11px] uppercase tracking-wider text-slate-500 font-bold mb-1.5 block">Subject</label>
+                            <select x-model="contactForm.subject" class="w-full px-4 py-3 bg-void-600 border border-white/5 rounded-xl text-sm text-slate-400 focus:outline-none cursor-pointer">
+                                <option value="">What's this about?</option>
+                                <option value="engineering">⚙️ Engineering Project</option>
+                                <option value="music">🎵 Music Collaboration</option>
+                                <option value="trading">📈 Trading Discussion</option>
+                                <option value="coding">💻 Web Dev Project</option>
+                                <option value="other">🤝 Other / Just saying hi</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-[11px] uppercase tracking-wider text-slate-500 font-bold mb-1.5 block">Message</label>
+                            <textarea x-model="contactForm.message" rows="4" placeholder="Your message..."
+                                      class="w-full px-4 py-3 bg-void-600 border border-white/5 rounded-xl text-sm placeholder-slate-600 focus:outline-none focus:border-n-purple/50 transition resize-y leading-relaxed"></textarea>
+                        </div>
+                        <button @click="submitContact()"
+                                class="w-full py-3.5 bg-gradient-to-r from-n-purple to-n-blue text-white rounded-xl font-bold text-sm shadow-lg shadow-n-purple/20 hover:shadow-n-purple/40 transition flex items-center justify-center gap-2">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== FOOTER ===== -->
+        <footer class="border-t border-white/5 py-8">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div class="flex justify-center gap-4 mb-4">
+                    <template x-for="link in socialLinks" :key="link.name">
+                        <a :href="link.url" target="_blank" class="w-9 h-9 rounded-lg bg-void-700 flex items-center justify-center text-slate-500 hover:text-n-purple transition">
+                            <i :class="link.icon"></i>
+                        </a>
+                    </template>
+                </div>
+                <p class="text-xs text-slate-600">
+                    Designed & Built by <span class="text-slate-400 font-semibold">Your Name</span> •
+                    <span class="font-mono" x-text="new Date().getFullYear()"></span>
+                </p>
+                <p class="text-[10px] text-slate-700 mt-1">Engineer • Producer • Trader • Developer</p>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- ====== PROJECT DETAIL MODAL ====== -->
+    <template x-if="projectModal.show">
+        <div class="fixed inset-0 z-[200] flex items-center justify-center p-4" x-cloak>
+            <div class="absolute inset-0 bg-black/80 backdrop-blur-md" @click="projectModal.show = false"></div>
+            <div class="relative bg-void-800 border border-white/10 rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl animate-slideUp">
+                <button @click="projectModal.show = false" class="sticky top-4 float-right mr-4 z-10 w-10 h-10 rounded-full bg-void-600 flex items-center justify-center text-slate-400 hover:text-white transition">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="p-6 sm:p-8">
+                    <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md mb-3 inline-block"
+                          :class="{
+                              'bg-n-blue/15 text-n-blue': projectModal.project?.category === 'engineering',
+                              'bg-n-purple/15 text-purple-300': projectModal.project?.category === 'music',
+                              'bg-n-green/15 text-emerald-300': projectModal.project?.category === 'trading',
+                              'bg-n-cyan/15 text-cyan-300': projectModal.project?.category === 'coding'
+                          }"
+                          x-text="projectModal.project?.category"></span>
+                    <h2 class="text-2xl font-black mb-4" x-text="projectModal.project?.title"></h2>
+
+                    <!-- Video Area -->
+                    <div class="aspect-video bg-void-600 rounded-xl mb-6 flex items-center justify-center overflow-hidden">
+                        <template x-if="projectModal.project?.videoUrl">
+                            <video :src="projectModal.project.videoUrl" controls class="w-full h-full object-cover"></video>
+                        </template>
+                        <template x-if="!projectModal.project?.videoUrl">
+                            <div class="text-center">
+                                <i class="fas fa-photo-film text-3xl text-slate-700 mb-2"></i>
+                                <p class="text-xs text-slate-600">Project media</p>
+                            </div>
+                        </template>
+                    </div>
+
+                    <p class="text-slate-300 leading-relaxed mb-4" x-text="projectModal.project?.fullDescription || projectModal.project?.description"></p>
+
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <template x-for="tag in projectModal.project?.tags" :key="tag">
+                            <span class="px-3 py-1 bg-void-600 text-slate-400 text-[11px] font-semibold rounded-lg" x-text="tag"></span>
+                        </template>
+                    </div>
+
+                    <div x-show="projectModal.project?.link" class="flex gap-3">
+                        <a :href="projectModal.project?.link" target="_blank" class="px-5 py-2.5 bg-n-purple/20 text-purple-300 rounded-xl text-sm font-bold hover:bg-n-purple/30 transition flex items-center gap-2">
+                            <i class="fas fa-external-link-alt"></i> View Live
+                        </a>
+                        <a :href="projectModal.project?.github" target="_blank" x-show="projectModal.project?.github" class="px-5 py-2.5 bg-void-600 text-slate-400 rounded-xl text-sm font-bold hover:text-white transition flex items-center gap-2">
+                            <i class="fab fa-github"></i> Source Code
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- ====== ADD PROJECT MODAL ====== -->
+    <template x-if="showAddProject">
+        <div class="fixed inset-0 z-[200] flex items-center justify-center p-4" x-cloak>
+            <div class="absolute inset-0 bg-black/80 backdrop-blur-md" @click="showAddProject = false"></div>
+            <div class="relative bg-void-800 border border-white/10 rounded-3xl w-full max-w-md max-h-[90vh] overflow-y-auto shadow-2xl animate-slideUp">
+                <div class="h-1.5 bg-gradient-to-r from-n-purple via-n-blue to-n-cyan"></div>
+                <div class="p-6">
+                    <h2 class="text-xl font-black mb-5"><i class="fas fa-plus-circle text-n-purple mr-2"></i>Add Project</h2>
+                    <div class="space-y-3">
+                        <input type="text" x-model="newProject.title" placeholder="Project title" class="w-full px-4 py-3 bg-void-700 border border-white/5 rounded-xl text-sm focus:outline-none focus:border-n-purple/50 transition placeholder-slate-600">
+                        <select x-model="newProject.category" class="w-full px-4 py-3 bg-void-700 border border-white/5 rounded-xl text-sm text-slate-400 focus:outline-none cursor-pointer">
+                            <option value="engineering">⚙️ Engineering</option>
+                            <option value="music">🎵 Music</option>
+                            <option value="trading">📈 Trading</option>
+                            <option value="coding">💻 Coding</option>
+                        </select>
+                        <textarea x-model="newProject.description" placeholder="Description..." rows="3" class="w-full px-4 py-3 bg-void-700 border border-white/5 rounded-xl text-sm focus:outline-none focus:border-n-purple/50 transition resize-y placeholder-slate-600 leading-relaxed"></textarea>
+                        <input type="text" x-model="newProject.tags" placeholder="Tags (comma separated)" class="w-full px-4 py-3 bg-void-700 border border-white/5 rounded-xl text-sm focus:outline-none focus:border-n-purple/50 transition placeholder-slate-600">
+                        <input type="url" x-model="newProject.link" placeholder="Live URL (optional)" class="w-full px-4 py-3 bg-void-700 border border-white/5 rounded-xl text-sm focus:outline-none focus:border-n-purple/50 transition placeholder-slate-600">
+                        <input type="url" x-model="newProject.github" placeholder="GitHub URL (optional)" class="w-full px-4 py-3 bg-void-700 border border-white/5 rounded-xl text-sm focus:outline-none focus:border-n-purple/50 transition placeholder-slate-600">
+                        <label class="block w-full p-4 border-2 border-dashed border-white/10 rounded-xl text-center cursor-pointer hover:border-n-purple/30 transition">
+                            <input type="file" accept="video/*" @change="handleProjectVideo($event)">
+                            <i class="fas fa-cloud-arrow-up text-xl text-slate-600 mb-1"></i>
+                            <p class="text-xs text-slate-500" x-text="newProject.videoName || 'Upload video (optional)'"></p>
+                        </label>
+                        <div class="flex gap-3">
+                            <button @click="showAddProject = false" class="flex-1 py-3 bg-void-600 text-slate-400 rounded-xl text-sm font-bold hover:text-white transition">Cancel</button>
+                            <button @click="addProject()" class="flex-1 py-3 bg-gradient-to-r from-n-purple to-n-blue text-white rounded-xl text-sm font-bold shadow-lg shadow-n-purple/20 transition">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- ====== WRITING MODAL ====== -->
+    <template x-if="writingModal.show">
+        <div class="fixed inset-0 z-[200] flex items-center justify-center p-4" x-cloak>
+            <div class="absolute inset-0 bg-black/80 backdrop-blur-md" @click="writingModal.show = false"></div>
+            <div class="relative bg-void-800 border border-white/10 rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl animate-slideUp">
+                <button @click="writingModal.show = false" class="sticky top-4 float-right mr-4 z-10 w-10 h-10 rounded-full bg-void-600 flex items-center justify-center text-slate-400 hover:text-white transition">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="p-6 sm:p-10">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-2xl" x-text="writingModal.post?.emoji"></span>
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500" x-text="writingModal.post?.date + ' • ' + writingModal.post?.readTime"></span>
+                    </div>
+                    <h2 class="text-2xl font-black mb-6" x-text="writingModal.post?.title"></h2>
+                    <div class="prose prose-invert prose-sm max-w-none">
+                        <p class="text-slate-300 leading-relaxed whitespace-pre-wrap" x-text="writingModal.post?.content || writingModal.post?.excerpt"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- ====== TOAST ====== -->
+    <template x-if="toast.show">
+        <div class="fixed top-20 right-4 z-[999] max-w-sm animate-slideUp" x-cloak>
+            <div class="glass bg-void-700/95 border border-white/10 rounded-2xl p-4 shadow-2xl flex items-center gap-3">
+                <i class="fas fa-check-circle text-n-green"></i>
+                <p class="text-sm font-medium" x-text="toast.message"></p>
+            </div>
+        </div>
+    </template>
+
+    <!-- ====== JAVASCRIPT ====== -->
+    <script>
+        function portfolio() {
+            return {
+                // State
+                activeSection: 'home',
+                activeProfession: 'engineering',
+                projectFilter: 'all',
+                mobileMenu: false,
+                showAddProject: false,
+                projectModal: { show: false, project: null },
+                writingModal: { show: false, post: null },
+                toast: { show: false, message: '' },
+
+                // Typing effect
+                currentRole: '',
+                typingColorClass: 'text-n-blue',
+                roles: [
+                    { text: 'Mechanical Engineer', color: 'text-n-blue' },
+                    { text: 'Music Producer', color: 'text-n-purple' },
+                    { text: 'Forex Trader', color: 'text-n-green' },
+                    { text: 'Web Developer', color: 'text-n-cyan' },
+                ],
+                roleIndex: 0,
+                charIndex: 0,
+                isDeleting: false,
+
+                // Stats
+                animatedStats: { projects: 0, beats: 0, trades: 0, repos: 0 },
+
+                // Contact
+                contactForm: { name: '', email: '', subject: '', message: '' },
+
+                // New project form
+                newProject: { title: '', category: 'coding', description: '', tags: '', link: '', github: '', videoUrl: '', videoName: '' },
+
+                // Navigation
+                navItems: [
+                    { id: 'home', label: 'Home', icon: 'fas fa-home' },
+                    { id: 'about', label: 'About', icon: 'fas fa-user' },
+                    { id: 'professions', label: 'Skills', icon: 'fas fa-layer-group' },
+                    { id: 'projects', label: 'Projects', icon: 'fas fa-rocket' },
+                    { id: 'writings', label: 'Blog', icon: 'fas fa-pen-fancy' },
+                    { id: 'contact', label: 'Contact', icon: 'fas fa-envelope' },
+                ],
+
+                // Professions
+                professions: [
+                    {
+                        id: 'engineering', title: 'Mechanical Engineering', shortTitle: 'Engineering', subtitle: 'Student & Problem Solver',
+                        emoji: '⚙️', shortDesc: 'Studying the science of machines, thermodynamics, and mechanical design. Building a strong foundation in how the physical world works.',
+                        gradient: 'from-n-blue to-blue-400', borderColor: 'n-blue', iconBg: 'bg-n-blue/15', glowClass: 'glow-blue'
+                    },
+                    {
+                        id: 'music', title: 'Music Production', shortTitle: 'Music', subtitle: 'Beat Maker • Unreleased',
+                        emoji: '🎵', shortDesc: 'Producing beats across trap, hip-hop, afrobeats and experimental genres. Unreleased catalog growing daily.',
+                        gradient: 'from-n-purple to-purple-400', borderColor: 'n-purple', iconBg: 'bg-n-purple/15', glowClass: 'glow-purple'
+                    },
+                    {
+                        id: 'trading', title: 'Forex Trading', shortTitle: 'Trading', subtitle: 'Short-Term Trader',
+                        emoji: '📈', shortDesc: 'Trading currency pairs using technical analysis and price action on short timeframes with strict risk management.',
+                        gradient: 'from-n-green to-emerald-400', borderColor: 'n-green', iconBg: 'bg-n-green/15', glowClass: 'glow-green'
+                    },
+                    {
+                        id: 'coding', title: 'Web Development', shortTitle: 'Coding', subtitle: 'Full-Stack Developer',
+                        emoji: '💻', shortDesc: 'Building web applications from scratch — front-end interfaces, back-end APIs, and everything in between.',
+                        gradient: 'from-n-cyan to-cyan-400', borderColor: 'n-cyan', iconBg: 'bg-n-cyan/15', glowClass: 'glow-cyan'
+                    },
+                ],
+
+                // Skills
+                skills: {
+                    engineering: [
+                        { name: 'SolidWorks / CAD', level: 75 },
+                        { name: 'AutoCAD', level: 70 },
+                        { name: 'Thermodynamics', level: 65 },
+                        { name: 'MATLAB', level: 60 },
+                        { name: 'Materials Science', level: 70 },
+                        { name: 'Manufacturing', level: 55 },
+                    ],
+                    music: [
+                        { name: 'FL Studio', level: 70 },
+                        { name: 'Beat Making', level: 65 },
+                        { name: 'Mixing', level: 55 },
+                        { name: 'Sound Design', level: 50 },
+                        { name: 'Music Theory', level: 45 },
+                        { name: 'Mastering', level: 40 },
+                    ],
+                    trading: [
+                        { name: 'Technical Analysis', level: 75 },
+                        { name: 'Price Action', level: 70 },
+                        { name: 'Risk Management', level: 80 },
+                        { name: 'Candlestick Patterns', level: 65 },
+                        { name: 'Support/Resistance', level: 70 },
+                        { name: 'Indicators (RSI,MACD)', level: 60 },
+                    ],
+                    coding: [
+                        { name: 'JavaScript', level: 80 },
+                        { name: 'HTML/CSS/Tailwind', level: 85 },
+                        { name: 'Node.js / Express', level: 70 },
+                        { name: 'Python', level: 60 },
+                        { name: 'MongoDB', level: 65 },
+                        { name: 'React', level: 55 },
+                        { name: 'Git / GitHub', level: 75 },
+                    ],
+                },
+
+                // Projects (editable - stored in localStorage)
+                projects: [],
+
+                // Writings
+                writings: [
+                    { id: 1, title: 'Why Engineers Should Learn to Code', emoji: '⚙️', category: 'engineering', excerpt: 'In the modern world, the line between mechanical engineering and software is blurring. Here is why every engineer needs programming skills...', content: 'In the modern world, the line between mechanical engineering and software is blurring. CAD software, FEA simulations, CNC programming, IoT sensors — all require code.\n\nAs a mechanical engineering student who also codes, I see both worlds merging rapidly. MATLAB scripts for analysis, Python for data processing, even web apps for monitoring systems.\n\nMy advice: start with Python. It is the bridge language between engineering and software development. Then learn JavaScript if you want to build tools others can use through a browser.\n\nThe engineer of 2030 will be a hybrid — and that is exactly what I am becoming.', date: 'Mar 10, 2026', readTime: '4 min read' },
+                    { id: 2, title: 'My Unreleased Music Journey', emoji: '🎵', category: 'music', excerpt: 'I have been making beats for over a year and have not released a single one. Here is why that is perfectly fine — and what I have learned...', content: 'I have been producing music for a while now. My FL Studio project folder has hundreds of beats. Some are trash. Some are actually fire. None are published.\n\nAnd I am okay with that.\n\nThe pressure to release music before you are ready is real, especially in the age of SoundCloud and Spotify. But I believe in craft over clout. Every beat I make teaches me something: better mixing, cleaner arrangements, more creative sound design.\n\nWhen I finally release, it will not be a test — it will be a statement. Until then, the hard drive stays full and the skills keep growing.', date: 'Mar 5, 2026', readTime: '3 min read' },
+                    { id: 3, title: 'Lessons From Losing Money in Forex', emoji: '📈', category: 'trading', excerpt: 'Every trader blows an account. Here are the painful lessons I learned from my worst trades and how they made me better...', content: 'Let me be honest: I have lost money trading. More than once.\n\nBut every loss taught me something:\n\n1. NEVER trade without a stop-loss. I learned this the hard way with a GBP/USD position that wiped 15% of my account in one bad night.\n\n2. Position sizing is everything. Risking 5% per trade is not brave — it is stupid. Now I never risk more than 1-2%.\n\n3. The market does not care about your feelings. Your analysis might be perfect and the market will still stop you out. Accept it.\n\n4. Journal every trade. I started reviewing my trades weekly and my win rate improved by 20%.\n\n5. Patience is a superpower. The best trade is often no trade at all.\n\nTrading is not gambling if you treat it like a business. And that mindset change was worth every dollar I lost learning it.', date: 'Feb 28, 2026', readTime: '5 min read' },
+                    { id: 4, title: 'Building My First Full-Stack App', emoji: '💻', category: 'coding', excerpt: 'From zero to deployed — the story of building my first complete web application and what I wish I knew before starting...', content: 'My first real full-stack project was terrifying. Frontend? Sure, I could make things look nice. But connecting it to a database? Authentication? Deployment? That felt like climbing Everest.\n\nHere is what I learned:\n\n- Start with the simplest possible version. My first app tried to do everything and did nothing well.\n- Learn one stack deeply before exploring others. I chose Node.js + Express + MongoDB and it was the right call.\n- Git is not optional. I lost code THREE times before I started committing regularly.\n- Deploy early, even if it is ugly. Seeing your app live on the internet is the most motivating feeling ever.\n\nNow I build full applications in days, not months. The compound effect of consistent learning is real.', date: 'Feb 20, 2026', readTime: '4 min read' },
+                ],
+
+                // Social Links
+                socialLinks: [
+                    { name: 'GitHub', icon: 'fab fa-github', url: '#' },
+                    { name: 'LinkedIn', icon: 'fab fa-linkedin', url: '#' },
+                    { name: 'Twitter', icon: 'fab fa-x-twitter', url: '#' },
+                    { name: 'Telegram', icon: 'fab fa-telegram', url: '#' },
+                    { name: 'Email', icon: 'fas fa-envelope', url: 'mailto:your@email.com' },
+                ],
+
+                // ---- INIT ----
+                init() {
+                    this.loadProjects();
+                    if (this.projects.length === 0) this.seedProjects();
+                    this.startTypingEffect();
+                    this.animateStats();
+                    this.setupScrollReveal();
+                    this.setupCursorGlow();
+                    this.setupScrollSpy();
+                },
+
+                // ---- PROJECTS PERSISTENCE ----
+                loadProjects() {
+                    try { this.projects = JSON.parse(localStorage.getItem('pf_projects')) || []; } catch(e) {}
+                },
+                saveProjects() {
+                    localStorage.setItem('pf_projects', JSON.stringify(this.projects));
+                },
+
+                seedProjects() {
+                    this.projects = [
+                        { id: 1, title: 'Gear Train Design & Analysis', category: 'engineering', description: 'Designed a compound gear train system using SolidWorks with stress analysis via FEA simulation.', tags: ['SolidWorks', 'FEA', 'Gear Design'], hasVideo: false, link: '', github: '' },
+                        { id: 2, title: 'Trap Beat — "Midnight"', category: 'music', description: 'Dark trap beat with heavy 808s, atmospheric pads, and crisp hi-hats. Made in FL Studio.', tags: ['FL Studio', 'Trap', '808'], hasVideo: true, link: '', github: '' },
+                        { id: 3, title: 'EUR/USD Weekly Analysis', category: 'trading', description: 'Technical breakdown of EUR/USD using support/resistance levels and RSI divergence for short-term entries.', tags: ['Forex', 'Technical Analysis', 'EUR/USD'], hasVideo: true, link: '', github: '' },
+                        { id: 4, title: 'TrustET — Review Platform', category: 'coding', description: 'Full-stack review platform for Ethiopian businesses with video reviews, rankings, and schedule tickets.', tags: ['Node.js', 'Alpine.js', 'Tailwind', 'MongoDB'], hasVideo: false, link: '#', github: '#' },
+                        { id: 5, title: 'Heat Exchanger Simulation', category: 'engineering', description: 'MATLAB simulation of a counter-flow heat exchanger with varying flow rates and temperature profiles.', tags: ['MATLAB', 'Thermodynamics', 'Simulation'], hasVideo: false, link: '', github: '' },
+                        { id: 6, title: 'MindForge — Notes App', category: 'coding', description: 'Personal productivity app with notes, scheduled plans with countdown, and motivational quote notifications.', tags: ['Alpine.js', 'Tailwind CSS', 'localStorage'], hasVideo: false, link: '#', github: '#' },
+                        { id: 7, title: 'Lo-Fi Study Playlist', category: 'music', description: 'Collection of chill lo-fi beats designed for late-night study sessions and deep focus.', tags: ['Lo-Fi', 'Ambient', 'FL Studio'], hasVideo: false, link: '', github: '' },
+                        { id: 8, title: 'Gold (XAU/USD) Scalping Strategy', category: 'trading', description: 'Developed a 15-min scalping strategy for Gold using EMA crossovers and RSI confirmation.', tags: ['Gold', 'Scalping', 'Strategy'], hasVideo: true, link: '', github: '' },
+                    ];
+                    this.saveProjects();
+                },
+
+                get filteredProjects() {
+                    if (this.projectFilter === 'all') return this.projects;
+                    return this.projects.filter(p => p.category === this.projectFilter);
+                },
+
+                addProject() {
+                    if (!this.newProject.title) return;
+                    this.projects.push({
+                        id: Date.now(),
+                        title: this.newProject.title,
+                        category: this.newProject.category,
+                        description: this.newProject.description,
+                        tags: this.newProject.tags.split(',').map(t => t.trim()).filter(t => t),
+                        hasVideo: !!this.newProject.videoUrl,
+                        videoUrl: this.newProject.videoUrl,
+                        link: this.newProject.link,
+                        github: this.newProject.github,
+                    });
+                    this.saveProjects();
+                    this.showAddProject = false;
+                    this.newProject = { title: '', category: 'coding', description: '', tags: '', link: '', github: '', videoUrl: '', videoName: '' };
+                    this.showToast('Project added!');
+                },
+
+                handleProjectVideo(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        this.newProject.videoName = file.name;
+                        this.newProject.videoUrl = URL.createObjectURL(file);
+                    }
+                },
+
+                openProjectModal(project) { this.projectModal = { show: true, project }; },
+                openWritingModal(post) { this.writingModal = { show: true, post }; },
+
+                // ---- TYPING EFFECT ----
+                startTypingEffect() {
+                    const speed = 80;
+                    const deleteSpeed = 40;
+                    const pauseEnd = 2000;
+                    const pauseStart = 500;
+
+                    const typeLoop = () => {
+                        const role = this.roles[this.roleIndex];
+                        this.typingColorClass = role.color;
+
+                        if (!this.isDeleting) {
+                            this.currentRole = role.text.substring(0, this.charIndex + 1);
+                            this.charIndex++;
+                            if (this.charIndex === role.text.length) {
+                                setTimeout(() => { this.isDeleting = true; typeLoop(); }, pauseEnd);
+                                return;
+                            }
+                            setTimeout(typeLoop, speed);
+                        } else {
+                            this.currentRole = role.text.substring(0, this.charIndex - 1);
+                            this.charIndex--;
+                            if (this.charIndex === 0) {
+                                this.isDeleting = false;
+                                this.roleIndex = (this.roleIndex + 1) % this.roles.length;
+                                setTimeout(typeLoop, pauseStart);
+                                return;
+                            }
+                            setTimeout(typeLoop, deleteSpeed);
+                        }
+                    };
+                    setTimeout(typeLoop, 1000);
+                },
+
+                // ---- ANIMATED STATS ----
+                animateStats() {
+                    const targets = { projects: 15, beats: 50, trades: 500, repos: 12 };
+                    const duration = 2000;
+                    const steps = 60;
+                    let step = 0;
+                    const interval = setInterval(() => {
+                        step++;
+                        const progress = step / steps;
+                        const ease = 1 - Math.pow(1 - progress, 3);
+                        this.animatedStats.projects = Math.round(targets.projects * ease);
+                        this.animatedStats.beats = Math.round(targets.beats * ease);
+                        this.animatedStats.trades = Math.round(targets.trades * ease);
+                        this.animatedStats.repos = Math.round(targets.repos * ease);
+                        if (step >= steps) clearInterval(interval);
+                    }, duration / steps);
+                },
+
+                // ---- SCROLL REVEAL ----
+                setupScrollReveal() {
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) entry.target.classList.add('visible');
+                        });
+                    }, { threshold: 0.1 });
+                    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+                },
+
+                // ---- CURSOR GLOW ----
+                setupCursorGlow() {
+                    const glow = document.getElementById('cursorGlow');
+                    if (!glow) return;
+                    document.addEventListener('mousemove', (e) => {
+                        glow.style.left = e.clientX + 'px';
+                        glow.style.top = e.clientY + 'px';
+                    });
+                },
+
+                // ---- SCROLL SPY ----
+                setupScrollSpy() {
+                    const sections = ['home','about','professions','projects','writings','contact'];
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) this.activeSection = entry.target.id;
+                        });
+                    }, { threshold: 0.3 });
+                    sections.forEach(id => {
+                        const el = document.getElementById(id);
+                        if (el) observer.observe(el);
+                    });
+                },
+
+                // ---- CONTACT ----
+                submitContact() {
+                    if (!this.contactForm.name || !this.contactForm.email || !this.contactForm.message) {
+                        this.showToast('Please fill all fields');
+                        return;
+                    }
+                    // In production: send to API / email service
+                    const msgs = JSON.parse(localStorage.getItem('pf_messages') || '[]');
+                    msgs.push({ ...this.contactForm, date: new Date().toISOString() });
+                    localStorage.setItem('pf_messages', JSON.stringify(msgs));
+                    this.contactForm = { name: '', email: '', subject: '', message: '' };
+                    this.showToast('Message sent! I\'ll get back to you soon.');
+                },
+
+                // ---- TOAST ----
+                showToast(message) {
+                    this.toast = { show: true, message };
+                    setTimeout(() => this.toast.show = false, 3000);
+                },
+            }
+        }
+    </script>
+</body>
+</html>
