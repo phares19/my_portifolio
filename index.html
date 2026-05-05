@@ -291,7 +291,7 @@
                                     <!-- Replace with your photo -->
                                     <div class="text-center">
                                         <div class="text-6xl sm:text-7xl mb-2">🧑‍💻</div>
-                                        <p class="text-xs text-slate-500">Your Photo Here</p>
+                                        <p class="text-xs text-slate-500"><img src="./profileb.png" alt="farespicture"></p>
                                     </div>
                                 </div>
                             </div>
@@ -819,7 +819,7 @@
 
                 <div class="bg-void-700/40 glass border border-white/5 rounded-3xl p-6 sm:p-10">
                     <!-- Social Links -->
-                    <div class="flex flex-wrap justify-center gap-3 mb-8">
+                    <div x-data="profileData" class="flex flex-wrap justify-center gap-3 mb-8">
                         <template x-for="link in socialLinks" :key="link.name">
                             <a :href="link.url" target="_blank"
                                class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-void-600 border border-white/5 text-slate-400 text-sm font-medium hover:text-white hover:border-white/10 transition group">
@@ -1311,5 +1311,42 @@
             }
         }
     </script>
+
+<script>
+    document.addEventListener('alpine:init', () => {
+      Alpine.data('profileData', () => ({
+        socialLinks: [
+          { 
+            name: 'GitHub', 
+            url: 'https://github.com/phares19', 
+            icon: 'fab fa-github' 
+          },
+          { 
+            name: 'LinkedIn', 
+            url: 'https://linkedin.com/in/yourusername', 
+            icon: 'fab fa-linkedin' 
+          },
+          { 
+            name: 'Instagram', 
+            url: 'https://instagram.com/', 
+            icon: 'fab fa-instagram' 
+          },
+          { 
+            name: 'Email', 
+            url: 'mailto:habeshatobiya@email.com', 
+            icon: 'fas fa-envelope' 
+          },
+          { 
+            name: 'Telegram', 
+            url: 'https://t.me/Pharezm', 
+            icon: 'fab fa-telegram' 
+          }
+        ]
+      }))
+    })
+  </script>
+
 </body>
+
 </html>
+
